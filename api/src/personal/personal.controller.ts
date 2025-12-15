@@ -5,8 +5,8 @@ import { PersonalService } from './personal.service';
 export class PersonalController {
     constructor(private readonly personalService: PersonalService){}
 
-    @Post('post/aluno')
-    cadastrarAluno(@Body() body: {nome: string, email: string, senha: string, role: string}){
-        return this.personalService.cadastrarAluno(body)
+    @Post('post/academia')
+    cadastrarAcademia(@Body() body: { cnpj: string }){
+        return this.personalService.cadastrarAcademia(body.cnpj);
     }
 }
