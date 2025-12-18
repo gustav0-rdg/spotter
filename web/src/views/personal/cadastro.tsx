@@ -1,8 +1,26 @@
-import { MdHelp, MdHelpOutline, MdQuestionMark } from 'react-icons/md'
+import { redirect } from 'next/navigation'
+import { MdChevronLeft, MdQuestionMark } from 'react-icons/md'
 
 export default function CadastroPersonal(){
     return (
         <main className="w-screen h-screen flex flex-col gap-2 p-4 md:w-[768px] md:m-auto">
+            <header className="flex items-center justify-between py-2">
+                <button className="flex items-center gap-1 text-gray-900 font-bold hover:bg-gray-100 p-2 -ml-2 rounded-xl transition-colors"
+                onClick={() => {redirect('/login')}}
+                >
+                    <MdChevronLeft className="w-6 h-6" />
+                    <span>Voltar</span>
+                </button>
+                
+                <div className="flex text-center flex-col">
+                    <h1 className="font-extrabold text-lg leading-tight text-gray-900">
+                        Crie Seu Perfil
+                    </h1>
+                    <p className="text-xs text-gray-500 font-medium">
+                        Preencha os campos
+                    </p>
+                </div>
+            </header>
             <article className="flex w-100/100 p-2 bg-gray-200 rounded-xl gap-1 md:gap-4 md:p-4">
                 <div className="w-20/100 h-60/100 bg-gray-300 rounded-xl p-1">
                     <MdQuestionMark className='w-full h-full' />
