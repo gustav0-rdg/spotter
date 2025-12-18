@@ -1,3 +1,5 @@
+"use client";
+
 import { redirect } from "next/navigation";
 
 export default function Home(){
@@ -7,6 +9,7 @@ export default function Home(){
         <h4 className="ml-2 text-2xl font-semibold tracking-wide">Spotter</h4>
         <button
           className="bg-[var(--btn-bg)] rounded-full w-35/100 h-35/100 md:w-20/100 md:h-50/100"
+          onClick={() => {redirect('login')}}
         >
           Entrar</button>
       </header>
