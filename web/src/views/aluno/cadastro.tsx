@@ -1,192 +1,184 @@
-'use client'
+"use client";
 
-import { 
-  MdQuestionMark, 
-  MdVpnKey, 
-  MdChevronLeft, 
-  MdFitnessCenter, 
-  MdTrendingUp, 
-  MdAccessibility, 
-  MdSpeed, 
-  MdHealing, 
-  MdSelfImprovement 
-} from "react-icons/md"
-import { useRouter } from "next/navigation"
-import { ReactNode } from "react"
-
-// Interfaces TypeScript
-interface ObjectiveButtonProps {
-    label: string;
-    icon: ReactNode;
-    active?: boolean;
-    onClick?: () => void;
-}
-
-interface IconProps {
-    className?: string;
-}
+import { MdQuestionMark, MdVpnKey, MdChevronLeft, MdDirectionsRun, MdHealing, MdAccessibilityNew } from "react-icons/md"
+import { FaFire, FaDumbbell } from "react-icons/fa6" // FontAwesome para ícones mais específicos
+import { GiBiceps } from "react-icons/gi" // GameIcons tem um ícone perfeito para Hipertrofia
+import { redirect } from "next/navigation"
+import { useState } from "react";
 
 export default function CadastroAluno() {
-    const router = useRouter();
+    // Array auxiliar para renderizar os botões de objetivo de forma limpa
+    const objetivos = [
+        { label: "Hipertrofia", foco: 'hipertrofia', icon: GiBiceps, active: true },
+        { label: "Força", foco: 'forca', icon: FaDumbbell, active: false },
+        { label: "Emagrecimento", foco: 'emagrecimento', icon: FaFire, active: false },
+        { label: "Resistência", foco: 'resistencia', icon: MdDirectionsRun, active: false },
+        { label: "Mobilidade", foco: 'mobilidade', icon: MdAccessibilityNew, active: false },
+        { label: "Reabilitação", foco: 'reabilitacao',icon: MdHealing, active: false },
+    ]
+
+    const [foco, setFoco] = useState("");
 
     return (
-        // Layout Wrapper igual ao da Home
-        <main className="w-screen min-h-screen flex flex-col items-center bg-white md:w-[768px] md:m-auto">
-            
-            {/* Header consistente com a Home */}
-            <header className="w-full px-6 pt-8 pb-4 flex flex-col gap-6">
-                <button 
-                    type="button"
-                    className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors self-start"
-                    onClick={() => router.back()}
-                >
-                    <MdChevronLeft className="w-6 h-6" />
-                    <span className="text-sm font-bold">Voltar</span>
-                </button>
-                
-                <div>
-                    <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 leading-tight">
-                        Crie seu perfil
-                    </h1>
-                    <p className="text-gray-600 font-medium mt-1">
-                        Preencha seus dados para começar.
-                    </p>
-                </div>
-            </header>
+        // MUDANÇA: bg-white no mobile, mas bg-gray-50 no desktop para dar destaque ao formulário
+        <main className="min-h-screen w-full flex flex-col items-center bg-white md:bg-gray-50 md:justify-center md:py-10">
 
-            <div className="w-full px-6 pb-10 flex flex-col gap-8">
+            {/* Container Centralizado */}
+            {/* MUDANÇA: Adicionado shadow e rounded apenas no md (desktop) */}
+            <div className="w-full h-full flex flex-col gap-6 p-6 max-w-md md:max-w-2xl bg-white md:shadow-xl md:rounded-3xl md:p-10 transition-all">
 
-                {/* --- SEÇÃO 1: CREDENCIAIS --- */}
-                <section className="flex flex-col gap-6">
-                    
-                    {/* Banner Informativo (Estilo Card da Home) */}
-                    <article className="rounded-3xl bg-gray-50 border border-gray-100 p-6 flex gap-4 items-start shadow-sm">
-                        <div className="shrink-0 text-gray-900 mt-1">
-                            <MdQuestionMark className="w-6 h-6" />
-                        </div>
-                        <p className="text-gray-600 text-sm leading-relaxed font-medium">
-                            <span className="text-gray-900 font-bold">Spotter</span> usa seus dados para calibrar as cargas iniciais com IA.
+                <header className="flex items-center justify-between py-2">
+                    <button 
+                        className="flex items-center gap-1 text-gray-900 font-bold hover:bg-gray-100 p-2 -ml-2 rounded-xl transition-colors"
+                        onClick={() => { redirect('/login') }}
+                    >
+                        <MdChevronLeft className="w-6 h-6" />
+                        <span>Voltar</span>
+                    </button>
+
+                    <div className="flex text-center flex-col">
+                        <h1 className="font-extrabold text-lg leading-tight text-gray-900">
+                            Crie Seu Perfil
+                        </h1>
+                        <p className="text-xs text-gray-500 font-medium">
+                            Preencha os campos
                         </p>
-                    </article>
+                    </div>
+                </header>
 
-                    <form className="flex flex-col gap-5">
-                        
-                        {/* INPUT ESPECIAL: Chave do Treinador */}
-                        <div className="flex flex-col gap-2">
-                             <div className="flex items-center gap-2 ml-2">
-                                <MdVpnKey className="text-gray-900" />
-                                <label htmlFor="chave" className="text-sm font-bold text-gray-900">Chave do Treinador</label>
+                {/* 1. Banner Principal */}
+                <article className="flex w-full bg-gray-100 rounded-3xl p-4 gap-4 items-center">
+                    <div className="shrink-0 w-16 h-16 bg-gray-200 rounded-2xl flex items-center justify-center text-gray-800">
+                        <MdQuestionMark className="w-8 h-8" />
+                    </div>
+
+                    <div className="flex flex-col">
+                        <h1 className="font-extrabold text-lg leading-tight text-gray-900">
+                            Nos conte sobre você
+                        </h1>
+                        <p className="text-xs text-gray-600 mt-1 leading-snug">
+                            Spotter usa os dados fornecidos para calibrar sessões de treino personalizadas.
+                        </p>
+                    </div>
+                </article>
+
+                <section className="flex flex-col w-full gap-4">
+                    <h2 className="text-sm font-bold text-black ml-1">
+                        1. Credenciais da conta
+                    </h2>
+
+                    {/* MUDANÇA: Grid system para inputs no desktop */}
+                    <form className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        {/* Chave - Ocupa 2 colunas no desktop (full width) */}
+                        <div className="flex flex-col gap-2 md:col-span-2">
+                            <div className="flex items-start gap-3 mb-1">
+                                <div className="p-2 bg-gray-100 rounded-lg text-gray-700">
+                                    <MdVpnKey className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-sm text-gray-900">Chave do Treinador</h3>
+                                    <p className="text-xs text-gray-500">Insira a chave de acesso de seu treinador</p>
+                                </div>
                             </div>
-                            <input 
+
+                            <input
                                 id="chave"
-                                type="text" 
-                                placeholder="H789-Z19"
-                                // Estilo baseado no Card da Home: bg-gray-50, border-gray-100
-                                className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-gray-900 placeholder:text-gray-400 font-bold tracking-widest text-center uppercase outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white transition-all shadow-sm"
+                                type="text"
+                                placeholder="Chave de acesso (ex: H789-Z19)"
+                                className="w-full border border-gray-200 bg-white rounded-2xl p-4 text-gray-900 placeholder-gray-300 outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all shadow-sm"
                             />
                         </div>
 
-                        {/* INPUTS NORMAIS */}
-                        <div className="space-y-5">
-                            <div className="flex flex-col gap-2">
-                                <label className="text-sm font-bold text-gray-900 ml-2">Nome completo</label>
-                                <input 
-                                    type="text" 
-                                    // Mantendo a consistência visual
-                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-gray-900 placeholder:text-gray-400 font-medium outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white transition-all shadow-sm"
-                                    placeholder="Seu nome"
-                                />
-                            </div>
+                        {/* Input: Nome */}
+                        <div className="flex flex-col gap-1.5">
+                            <label htmlFor="nome" className="text-sm font-semibold text-gray-600 ml-1">
+                                Nome completo
+                            </label>
+                            <input
+                                id="nome"
+                                type="text"
+                                className="w-full border border-gray-200 rounded-2xl p-4 outline-none focus:ring-2 focus:ring-gray-400 transition-all shadow-sm h-14"
+                            />
+                        </div>
 
-                            <div className="flex flex-col gap-2">
-                                <label className="text-sm font-bold text-gray-900 ml-2">E-mail</label>
-                                <input 
-                                    type="email" 
-                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-gray-900 placeholder:text-gray-400 font-medium outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white transition-all shadow-sm"
-                                    placeholder="seu@email.com"
-                                />
-                            </div>
+                        {/* Input: Email */}
+                        <div className="flex flex-col gap-1.5">
+                            <label htmlFor="email" className="text-sm font-semibold text-gray-600 ml-1">
+                                Endereço de Email
+                            </label>
+                            <input
+                                id="email"
+                                type="email"
+                                placeholder="exemplo@email.com"
+                                className="w-full border border-gray-200 rounded-2xl p-4 placeholder-gray-400 outline-none focus:ring-2 focus:ring-gray-400 transition-all shadow-sm h-14"
+                            />
+                        </div>
 
-                            <div className="flex flex-col gap-2">
-                                <label className="text-sm font-bold text-gray-900 ml-2">Senha</label>
-                                <input 
-                                    type="password" 
-                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-gray-900 placeholder:text-gray-400 font-medium outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white transition-all shadow-sm"
-                                    placeholder="••••••••"
-                                />
-                            </div>
+                        {/* Input: Senha - Full width no mobile, Full width no desktop também para segurança visual ou pode ser col-span-2 */}
+                        <div className="flex flex-col gap-1.5 md:col-span-2">
+                            <label htmlFor="senha" className="text-sm font-semibold text-gray-600 ml-1">
+                                Senha
+                            </label>
+                            <input
+                                id="senha"
+                                type="password"
+                                placeholder="••••••••"
+                                className="w-full border border-gray-200 rounded-2xl p-4 placeholder-gray-400 outline-none focus:ring-2 focus:ring-gray-400 transition-all shadow-sm h-14"
+                            />
                         </div>
                     </form>
                 </section>
 
-                <hr className="border-gray-100" />
+                <hr className='w-full border-t border-gray-200 my-2' />
 
-                {/* --- SEÇÃO 2: PERFIL DE TREINO --- */}
-                <section className="flex flex-col gap-6">
-                    <h2 className="text-xl font-extrabold tracking-tight text-gray-900">
-                        Objetivo Principal
+                <section className="flex flex-col w-full gap-3">
+                    <h2 className="text-sm font-bold text-black ml-1">
+                        2. Perfil de treino
                     </h2>
-                    
-                    <div className="grid grid-cols-2 gap-3">
-                        <ObjectiveButton label="Hipertrofia" icon={<MdFitnessCenter/>} active={true} />
-                        <ObjectiveButton label="Força" icon={<MdTrendingUp/>} />
-                        <ObjectiveButton label="Perda de Peso" icon={<MdSpeed/>} />
-                        <ObjectiveButton label="Resistência" icon={<MdDirectionsRun/>} />
-                        <ObjectiveButton label="Mobilidade" icon={<MdAccessibility/>} />
-                        <ObjectiveButton label="Reabilitação" icon={<MdHealing/>} />
-                    </div>
 
-                    <div className="flex flex-col gap-3 mt-4">
-                        <span className="text-sm font-bold text-gray-900 ml-2">Tempo de treino</span>
-                        <div className="flex p-1.5 bg-gray-50 border border-gray-100 rounded-full">
-                            <button type="button" className="flex-1 py-2.5 text-sm font-bold text-white bg-gray-900 rounded-full shadow-md transition-all">
-                                Iniciante
-                            </button>
-                            <button type="button" className="flex-1 py-2.5 text-sm font-bold text-gray-500 hover:text-gray-900 transition-all">
-                                Intermed.
-                            </button>
-                            <button type="button" className="flex-1 py-2.5 text-sm font-bold text-gray-500 hover:text-gray-900 transition-all">
-                                Avançado
-                            </button>
+                    <div className="flex flex-col gap-2">
+                        <small className="text-sm font-thin text-black ml-1">Objetivo Principal</small>
+                        
+                        {/* MUDANÇA: Grid responsivo. 2 colunas mobile -> 3 colunas desktop (md:grid-cols-3) */}
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 w-full">
+                            {objetivos.map((obj) => (
+                                <button 
+                                    key={obj.label}
+                                    className={`
+                                        h-[100px] md:h-[120px] rounded-2xl shadow-sm text-sm font-medium transition-all
+                                        flex flex-col items-center justify-center gap-2
+                                        hover:bg-gray-300 hover:scale-[1.02] active:scale-95
+                                        ${foco === obj.foco 
+                                            ? "bg-gray-900 text-white font-bold shadow-lg hover:bg-gray-800 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300" 
+                                            : "bg-gray-100 border-2 border-transparent text-gray-500"} /* Mudei text-gray-600 para 500 para ícones inativos ficarem mais sutis */
+                                    `}
+                                    onClick={() => {setFoco(obj.foco);}}
+                                >
+                                    {/* Renderiza o ícone com tamanho dinâmico */}
+                                    <obj.icon className={`w-6 h-6 md:w-8 md:h-8 ${obj.active ? "text-gray-500" : "text-gray-400"}`} />
+                                    
+                                    <span>{obj.label}</span>
+                                </button>
+                            ))}
                         </div>
                     </div>
-                </section>
 
-                {/* Botão Principal (Estilo Home) */}
-                <div className="mt-2">
-                    <button 
-                        type="button" 
-                        className="w-full bg-gray-900 text-white font-bold text-lg py-4 rounded-full shadow-lg hover:bg-gray-800 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
-                    >
-                        Finalizar Cadastro
-                    </button>
-                </div>
+                    <div className="flex flex-col gap-2 mt-2">
+                        <small className="text-sm font-thin text-black ml-1">Nível de experiência</small>
+                        
+                        {/* MUDANÇA: Grid para experiência também */}
+                        <div className="grid grid-cols-3 gap-3 w-full">
+                            {["0 - 2 anos", "2 - 5 anos", "5+ anos"].map((nivel) => (
+                                <button key={nivel} className="h-[45px] bg-gray-100 rounded-xl text-xs md:text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors">
+                                    {nivel}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                </section>
             </div>
         </main>
     )
-}
-
-// Componente auxiliar mantendo o estilo visual clean
-function ObjectiveButton({ label, icon, active = false, onClick }: ObjectiveButtonProps) {
-    return (
-        <button 
-            type="button"
-            onClick={onClick}
-            className={`
-                flex flex-col items-center justify-center gap-3 p-4 rounded-3xl border transition-all duration-300 h-32
-                ${active 
-                    ? 'bg-gray-900 text-white border-gray-900 shadow-lg' 
-                    : 'bg-gray-50 text-gray-600 border-gray-100 hover:border-gray-300 hover:shadow-md'}
-            `}
-        >
-            <div className={`text-2xl ${active ? 'text-white' : 'text-gray-400'}`}>
-                {icon || <MdSelfImprovement/>}
-            </div>
-            <span className="font-bold text-sm tracking-tight">{label}</span>
-        </button>
-    )
-}
-
-function MdDirectionsRun({ className }: IconProps) { 
-    return <span className={className}>🏃</span> 
 }
