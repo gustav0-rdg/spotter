@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { MdChevronLeft, MdQuestionMark } from 'react-icons/md'
-
+import { InputArea } from '@/components/Input/Input'
 export default function CadastroPersonal() {
     return (
         // MUDANÇA: bg-white no mobile, bg-gray-50 no desktop para destacar o card
@@ -44,42 +44,25 @@ export default function CadastroPersonal() {
                     
                     {/* MUDANÇA: Grid System (2 colunas no desktop) */}
                     <form className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                        
-                        <div className="flex flex-col gap-1.5">
-                            <label htmlFor="nome" className="text-sm font-semibold text-gray-700 ml-1">
-                                Nome completo
-                            </label>
-                            <input
-                                id="nome"
-                                type="text"
-                                className='border border-gray-300 rounded-xl p-3 shadow-sm outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all'
-                            />
-                        </div>
-
-                        <div className="flex flex-col gap-1.5">
-                            <label htmlFor="email" className="text-sm font-semibold text-gray-700 ml-1">
-                                Endereço de Email
-                            </label>
-                            <input
-                                id="email"
-                                type="email"
-                                placeholder="exemplo@email.com"
-                                className='border border-gray-300 rounded-xl p-3 shadow-sm outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all'
-                            />
-                        </div>
-
-                        {/* Senha ocupa largura total no grid mobile, e pode ocupar total ou parcial no desktop. Aqui deixei col-span-2 (total) por estética */}
-                        <div className="flex flex-col gap-1.5 md:col-span-2">
-                            <label htmlFor="senha" className="text-sm font-semibold text-gray-700 ml-1">
-                                Senha
-                            </label>
-                            <input
-                                id="senha"
-                                type="password"
-                                placeholder="••••••••"
-                                className='border border-gray-300 rounded-xl p-3 shadow-sm outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all'
-                            />
-                        </div>
+                        <InputArea 
+                            id='nome'
+                            text='Nome Completo'
+                            aditionalClass=''
+                        />
+                         <InputArea 
+                            id='email'
+                            type='email'
+                            text='Endereço de Email'
+                            aditionalClass=''
+                            placeholder='exemplo@email.com'
+                        />
+                        <InputArea 
+                            id='senha'
+                            type='password'
+                            placeholder='••••••••'
+                            aditionalClass='md:col-span-2'
+                            text='Senha'
+                        />
                     </form>
                 </section>
 

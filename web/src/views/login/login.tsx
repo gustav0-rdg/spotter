@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-
+import { InputArea } from '@/components/Input/Input';
 export default function LoginGenerico() {
     const [selecionado, setSelecionado] = useState('aluno'); 
 
@@ -42,28 +42,20 @@ export default function LoginGenerico() {
                 </div>
 
                 <form className='flex flex-col w-full max-w-sm gap-5' action="">
-                    <div className="flex flex-col gap-1.5">
-                        <label htmlFor="email" className="text-sm font-semibold text-gray-700 ml-1">
-                            Endereço de Email
-                        </label>
-                        <input 
-                            id="email"
-                            type="email" 
-                            placeholder="exemplo@email.com"
-                            className='border border-gray-300 rounded-xl p-3 shadow-sm outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all' 
-                        />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                        <label htmlFor="senha" className="text-sm font-semibold text-gray-700 ml-1">
-                            Senha
-                        </label>
-                        <input 
-                            id="senha"
-                            type="password" 
-                            placeholder="••••••••"
-                            className='border border-gray-300 rounded-xl p-3 shadow-sm outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all'  
-                        />
-                    </div>
+                    <InputArea 
+                        id='email'
+                        type='email'
+                        text='Endereço de Email'
+                        aditionalClass=''
+                        placeholder='exemplo@email.com'
+                    />
+                    <InputArea 
+                        id='senha'
+                        type='password'
+                        placeholder='••••••••'
+                        aditionalClass=''
+                        text='Senha'
+                    />
                     <div className='w-full flex justify-end'>
                         <a href="/recuperar-senha" className='text-sm text-gray-600 hover:text-black font-medium transition-colors'>
                             Esqueceu sua senha?
